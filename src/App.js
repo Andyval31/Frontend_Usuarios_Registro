@@ -5,10 +5,12 @@ import './App.css';
 function App() {
   const [usuarios, setUsuarios] = useState([]);
   const [form, setForm] = useState({ nombre: '', email: '', telefono: '' });
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5005';
+  console.log('API_URL:', API_URL);
 
   const fetchUsuarios = async () => {
     try {
-      const res = await axios.get('http://localhost:8000/api/usuarios/');
+      const res = await axios.get(`${API_URL}/api/usuarios/`);
       setUsuarios(res.data);
     } catch (error) {
       console.error('Error al obtener usuarios:', error);
@@ -18,7 +20,7 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:8000/api/usuarios/crear/', form);
+      await axios.post(`${API_URL}/api/usuarios/crear/`, form);
       setForm({ nombre: '', email: '', telefono: '' });
       fetchUsuarios();
     } catch (error) {
