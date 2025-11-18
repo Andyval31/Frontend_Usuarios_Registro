@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  frontend:
+    build:
+      context: ./frontend-registro
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_URL: http://localhost:5005
+    container_name: frontend-usuarios
+    ports:
+      - "3000:80"
+    networks:
+      - app-network
+    restart: unless-stopped
+
+networks:
+  app-network:
+    external: true  # ← Usa la red com
